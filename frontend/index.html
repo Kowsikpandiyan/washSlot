@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WashSlot – Select Hostel | Laundry Slot Booking System</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <div class="landing-background">
+    <div class="bg-shape shape-1"></div>
+    <div class="bg-shape shape-2"></div>
+  </div>
+
+  <main class="selection-container">
+    <div class="selection-card">
+      <div class="brand-badge">
+        <span class="brand-icon">🧺</span>
+        <span class="brand-tag">Hostel Laundry Register</span>
+      </div>
+
+      <h1 class="landing-title">WashSlot</h1>
+      <p class="landing-subtitle">Select your hostel to view available washing machine slots and book today's schedule instantly.</p>
+
+      <div id="activeHostelHint" class="active-hint"></div>
+
+      <div class="hostels-grid">
+        <button class="hostel-btn" data-hostel="Hostel 1" onclick="selectHostel('Hostel 1')">
+          <div class="hostel-icon-wrapper">
+            <span class="hostel-emoji">🏠</span>
+          </div>
+          <div class="hostel-btn-content">
+            <h2>Hostel 1</h2>
+            <p>Laundry Slots & Booking</p>
+          </div>
+          <span class="arrow-icon">→</span>
+        </button>
+
+        <button class="hostel-btn" data-hostel="Hostel 2" onclick="selectHostel('Hostel 2')">
+          <div class="hostel-icon-wrapper">
+            <span class="hostel-emoji">🏠</span>
+          </div>
+          <div class="hostel-btn-content">
+            <h2>Hostel 2</h2>
+            <p>Laundry Slots & Booking</p>
+          </div>
+          <span class="arrow-icon">→</span>
+        </button>
+      </div>
+
+      <div class="landing-footer">
+        <span>⚡ Quick Booking • No Registration Required • Auto Live Sync</span>
+      </div>
+    </div>
+  </main>
+
+  <script src="js/script.js"></script>
+</body>
+</html>

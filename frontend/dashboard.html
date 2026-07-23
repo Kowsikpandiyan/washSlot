@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WashSlot – Dashboard & Laundry Booking</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+</head>
+<body>
+
+  <!-- Top App Navigation -->
+  <header class="app-header">
+    <div class="header-container">
+      <div class="brand">
+        <span class="logo-emoji">🧺</span>
+        <div class="brand-text">
+          <h1>WashSlot</h1>
+          <span class="brand-sub">Hostel Laundry Booking</span>
+        </div>
+      </div>
+
+      <div class="header-actions">
+        <a href="report.html" class="btn btn-secondary">
+          <span>📊 Monthly Report</span>
+        </a>
+        <button class="btn btn-outline" onclick="changeHostel()">
+          <span>🏠 Switch Hostel</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Dashboard Main Body -->
+  <main class="dashboard-main">
+
+    <!-- Overview Bar & Stats -->
+    <section class="info-section">
+      <div class="info-card hostel-card">
+        <div class="info-icon">🏠</div>
+        <div class="info-content">
+          <span class="info-label">Active Hostel</span>
+          <h2 id="hostelName">Loading...</h2>
+        </div>
+      </div>
+
+      <div class="info-card date-card">
+        <div class="info-icon">📅</div>
+        <div class="info-content">
+          <span class="info-label">Today's Date</span>
+          <h2 id="currentDate">--</h2>
+        </div>
+      </div>
+
+      <div class="info-card day-card">
+        <div class="info-icon">🗓️</div>
+        <div class="info-content">
+          <span class="info-label">Day of Week</span>
+          <h2 id="currentDay">--</h2>
+        </div>
+      </div>
+
+      <div class="info-card stats-card">
+        <div class="info-icon">⚡</div>
+        <div class="info-content">
+          <span class="info-label">Slot Status</span>
+          <div class="stats-pills">
+            <span class="stat-available"><strong id="availableCount">0</strong> Available</span>
+            <span class="stat-booked"><strong id="bookedCount">0</strong> Booked</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Schedule Information Section -->
+    <section class="schedule-section">
+      <div class="section-header">
+        <h3>⏰ Laundry Timings & Schedule</h3>
+        <span class="refresh-indicator"><span>•</span> Live Auto Sync Every 5s</span>
+      </div>
+      <div id="scheduleGrid" class="schedule-grid">
+        <!-- Dynamically rendered schedule slots -->
+      </div>
+    </section>
+
+    <!-- Today's Laundry Slots Grid -->
+    <section class="slots-section">
+      <div class="section-header">
+        <h3>🫧 Washing Machines & Slot Status</h3>
+        <p class="section-desc">Click any green <strong>AVAILABLE</strong> slot to make your booking. Booked slots show student details.</p>
+      </div>
+
+      <div id="machineContainer" class="machine-container">
+        <!-- Rendered dynamically by dashboard.js -->
+        <div class="loading-spinner-box">
+          <div class="spinner"></div>
+          <p>Fetching Washing Machine Slots...</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Booking Popup Modal -->
+  <div id="bookingModal" class="modal-overlay">
+    <div class="modal-box">
+      <div class="modal-header">
+        <div class="modal-title-wrap">
+          <span class="modal-icon">🧺</span>
+          <div>
+            <h3>Book Laundry Slot</h3>
+            <p>Fill in your student details to confirm your slot.</p>
+          </div>
+        </div>
+        <button class="modal-close-btn" onclick="closeModal()">&times;</button>
+      </div>
+
+      <form id="bookingForm" class="modal-form">
+        <!-- Readonly Prefilled Details -->
+        <div class="form-row prefilled-row">
+          <div class="form-group">
+            <label>Hostel</label>
+            <input type="text" id="modalHostel" readonly class="readonly-input">
+          </div>
+          <div class="form-group">
+            <label>Date</label>
+            <input type="text" id="modalDate" readonly class="readonly-input">
+          </div>
+        </div>
+
+        <div class="form-row prefilled-row">
+          <div class="form-group">
+            <label>Session</label>
+            <input type="text" id="modalSession" readonly class="readonly-input">
+          </div>
+          <div class="form-group">
+            <label>Machine</label>
+            <input type="text" id="modalMachine" readonly class="readonly-input">
+          </div>
+        </div>
+
+        <hr class="form-divider">
+
+        <!-- Student Inputs -->
+        <div class="form-group">
+          <label for="inputName">Full Name <span class="req">*</span></label>
+          <input type="text" id="inputName" placeholder="e.g. Kowsik R" required autocomplete="off">
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="inputRegisterNo">Register Number <span class="req">*</span></label>
+            <input type="text" id="inputRegisterNo" placeholder="e.g. 23CS101" required autocomplete="off">
+          </div>
+          <div class="form-group">
+            <label for="inputRoomNo">Room Number <span class="req">*</span></label>
+            <input type="text" id="inputRoomNo" placeholder="e.g. 212" required autocomplete="off">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="inputDepartment">Department <span class="req">*</span></label>
+          <input type="text" id="inputDepartment" placeholder="e.g. CSE (AI & ML)" required autocomplete="off">
+        </div>
+
+        <div class="modal-actions">
+          <button type="button" class="btn btn-outline" onclick="closeModal()">Cancel</button>
+          <button type="submit" id="submitBookingBtn" class="btn btn-primary">Confirm Booking</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div id="toastContainer" class="toast-container"></div>
+
+  <!-- Scripts -->
+  <script src="js/api.js"></script>
+  <script src="js/dashboard.js"></script>
+</body>
+</html>
