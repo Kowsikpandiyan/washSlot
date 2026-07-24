@@ -22,16 +22,16 @@ const WEEKDAY_SESSIONS = [
 ];
 
 const SUNDAY_SESSIONS = [
-  { id: "Slot 1", title: "Sunday Slot 1", time: "7:00 AM – 8:00 AM", endHour: 8, endMin: 0 },
-  { id: "Slot 2", title: "Sunday Slot 2", time: "8:00 AM – 9:00 AM", endHour: 9, endMin: 0 },
-  { id: "Slot 3", title: "Sunday Slot 3", time: "9:00 AM – 10:00 AM", endHour: 10, endMin: 0 },
-  { id: "Slot 4", title: "Sunday Slot 4", time: "10:00 AM – 11:00 AM", endHour: 11, endMin: 0 },
-  { id: "Slot 5", title: "Sunday Slot 5", time: "11:00 AM – 12:00 PM", endHour: 12, endMin: 0 },
-  { id: "Slot 6", title: "Sunday Slot 6", time: "12:00 PM – 1:00 PM", endHour: 13, endMin: 0 },
-  { id: "Slot 7", title: "Sunday Slot 7", time: "1:00 PM – 2:00 PM", endHour: 14, endMin: 0 },
-  { id: "Slot 8", title: "Sunday Slot 8", time: "2:00 PM – 3:00 PM", endHour: 15, endMin: 0 },
-  { id: "Slot 9", title: "Sunday Slot 9", time: "3:00 PM – 4:00 PM", endHour: 16, endMin: 0 },
-  { id: "Slot 10", title: "Sunday Slot 10", time: "4:00 PM – 5:00 PM", endHour: 17, endMin: 0 }
+  { id: "Slot 1", title: "Sunday Slot 1", time: "7:30 AM – 8:30 AM", endHour: 8, endMin: 0 },
+  { id: "Slot 2", title: "Sunday Slot 2", time: "8:30 AM – 9:30 AM", endHour: 9, endMin: 0 },
+  { id: "Slot 3", title: "Sunday Slot 3", time: "9:30 AM – 10:30 AM", endHour: 10, endMin: 0 },
+  { id: "Slot 4", title: "Sunday Slot 4", time: "10:30 AM – 11:30 AM", endHour: 11, endMin: 0 },
+  { id: "Slot 5", title: "Sunday Slot 5", time: "11:30 AM – 12:30 PM", endHour: 12, endMin: 0 },
+  { id: "Slot 6", title: "Sunday Slot 6", time: "2:30 PM – 3:30 PM", endHour: 13, endMin: 0 },
+  { id: "Slot 7", title: "Sunday Slot 7", time: "3:30 PM – 4:30 PM", endHour: 14, endMin: 0 },
+  { id: "Slot 8", title: "Sunday Slot 8", time: "4:30 PM – 5:30 PM", endHour: 15, endMin: 0 },
+  { id: "Slot 9", title: "Sunday Slot 9", time: "5:30 PM – 6:30 PM", endHour: 16, endMin: 0 },
+  { id: "Slot 10", title: "Sunday Slot 10", time: "6:30 PM – 7:30 PM", endHour: 17, endMin: 0 }
 ];
 
 /**
@@ -86,7 +86,6 @@ document.addEventListener("DOMContentLoaded", () => {
   // Populate Header & Info
   updateHeaderInfo();
 
-  renderScheduleSummary();
   fetchAndRenderBookings();
 
   // Setup Auto Refresh (every 5 seconds)
@@ -96,7 +95,6 @@ document.addEventListener("DOMContentLoaded", () => {
     if (updatedSchedule.activeISO !== currentSchedule.activeISO) {
       currentSchedule = updatedSchedule;
       updateHeaderInfo();
-      renderScheduleSummary();
     }
     fetchAndRenderBookings(true);
   }, 5000);
@@ -119,7 +117,7 @@ document.addEventListener("DOMContentLoaded", () => {
 function updateHeaderInfo() {
   document.getElementById("hostelName").innerText = currentHostel;
   document.getElementById("currentDate").innerText = currentSchedule.activeISO;
-  
+
   let dayLabel = currentSchedule.activeDay;
   if (currentSchedule.isTomorrow) {
     dayLabel += " (Tomorrow)";
@@ -144,29 +142,13 @@ function updateHeaderInfo() {
   }
 }
 
-// Render top schedule breakdown section
-function renderScheduleSummary() {
-  const scheduleContainer = document.getElementById("scheduleGrid");
-  if (!scheduleContainer) return;
-
-  scheduleContainer.innerHTML = currentSchedule.activeSessions.map(s => `
-    <div class="schedule-card">
-      <div class="schedule-icon">⏰</div>
-      <div class="schedule-info">
-        <h4>${s.id}</h4>
-        <p>${s.time}</p>
-      </div>
-    </div>
-  `).join("");
-}
-
 // Fetch bookings from backend and render machines & slots
 async function fetchAndRenderBookings(isSilent = false) {
   const response = await getTodayBookings(currentHostel, currentSchedule.activeISO);
 
   if (response && response.success) {
     const bookings = response.bookings || [];
-    
+
     // Create map for quick lookup: key = `${session}_${machineNumber}`
     const newMap = new Map();
     bookings.forEach(b => {
@@ -209,7 +191,7 @@ function renderMachineGrid() {
 
   currentSchedule.activeSessions.forEach(session => {
     const sessionEndMinutes = session.endHour * 60 + session.endMin;
-    
+
     // Session is closed if viewing TODAY and current time has passed session end time
     const isSessionClosed = !currentSchedule.isTomorrow && (currentMinutes >= sessionEndMinutes);
 
@@ -295,7 +277,7 @@ function openBookingModal(machineNumber, sessionId) {
   if (!modal) return;
 
   document.getElementById("modalHostel").value = currentHostel;
-  document.getElementById("modalMachine").value = `Machine ${machineNumber}`;
+  document.getElementById("modalMachine").value = "Washing Machine";
   document.getElementById("modalSession").value = sessionId;
   document.getElementById("modalDate").value = currentSchedule.activeISO;
 

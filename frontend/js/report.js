@@ -49,7 +49,7 @@ async function loadReport() {
 
   if (response && response.success) {
     fullReportData = response.report || [];
-    
+
     // Default sort by date ascending
     sortAscending = true;
     sortDataByDate();
@@ -91,7 +91,7 @@ function displayTable(data) {
     tr.innerHTML = `
       <td><span class="date-badge">${escapeHtml(item.bookingDate)}</span></td>
       <td><strong>${escapeHtml(item.session)}</strong></td>
-      <td><span class="machine-tag">Machine ${item.machineNumber}</span></td>
+      <td><span class="machine-tag">Washing Machine</span></td>
       <td class="name-td">👤 ${escapeHtml(item.name)}</td>
       <td>${escapeHtml(item.roomNo)}</td>
       <td>${escapeHtml(item.department)}</td>
@@ -192,7 +192,7 @@ function downloadPDF() {
   const tableRows = fullReportData.map(item => [
     item.bookingDate,
     item.session,
-    `Machine ${item.machineNumber}`,
+    "Washing Machine",
     item.name,
     item.roomNo,
     item.department,
@@ -200,7 +200,7 @@ function downloadPDF() {
   ]);
 
   doc.autoTable({
-    head: [["Date", "Session", "Machine", "Name", "Room No", "Department", "Register No"]],
+    head: [["Date", "Session", "Washing Machine", "Name", "Room No", "Department", "Register No"]],
     body: tableRows,
     startY: 38,
     theme: "striped",
@@ -242,7 +242,7 @@ function downloadExcel() {
     "Date": item.bookingDate,
     "Day": item.day,
     "Session": item.session,
-    "Machine Number": `Machine ${item.machineNumber}`,
+    "Washing Machine": "Washing Machine",
     "Student Name": item.name,
     "Register Number": item.registerNo,
     "Department": item.department,

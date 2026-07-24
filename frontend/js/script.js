@@ -2,16 +2,6 @@
 // WashSlot - Hostel Selection Logic
 // ===============================================
 
-document.addEventListener("DOMContentLoaded", () => {
-  // If hostel is already selected, visually highlight or offer quick continuation
-  const savedHostel = localStorage.getItem("hostel");
-  if (savedHostel) {
-    const hintElem = document.getElementById("activeHostelHint");
-    if (hintElem) {
-      hintElem.innerHTML = `Currently active: <strong>${savedHostel}</strong>. Click below to switch or enter.`;
-    }
-  }
-});
 
 function selectHostel(hostelName) {
   if (!hostelName) return;

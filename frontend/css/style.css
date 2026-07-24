@@ -183,11 +183,6 @@ a {
   margin-bottom: 32px;
 }
 
-.active-hint {
-  font-size: 0.9rem;
-  color: var(--primary);
-  margin-bottom: 16px;
-}
 
 .hostels-grid {
   display: flex;

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,11 +9,14 @@
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
 
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/dashboard.css">
 </head>
+
 <body>
 
   <!-- Top App Navigation -->
@@ -78,22 +82,12 @@
       </div>
     </section>
 
-    <!-- Schedule Information Section -->
-    <section class="schedule-section">
-      <div class="section-header">
-        <h3>⏰ Laundry Timings & Schedule</h3>
-        <span class="refresh-indicator"><span>•</span> Live Auto Sync Every 5s</span>
-      </div>
-      <div id="scheduleGrid" class="schedule-grid">
-        <!-- Dynamically rendered schedule slots -->
-      </div>
-    </section>
-
     <!-- Today's Laundry Slots Grid -->
     <section class="slots-section">
       <div class="section-header">
         <h3>🫧 Washing Machines & Slot Status</h3>
-        <p class="section-desc">Click any green <strong>AVAILABLE</strong> slot to make your booking. Booked slots show student details.</p>
+        <p class="section-desc">Click any green <strong>AVAILABLE</strong> slot to make your booking. Booked slots show
+          student details.</p>
       </div>
 
       <div id="machineContainer" class="machine-container">
@@ -150,23 +144,23 @@
         <!-- Student Inputs -->
         <div class="form-group">
           <label for="inputName">Full Name <span class="req">*</span></label>
-          <input type="text" id="inputName" placeholder="e.g. Kowsik R" required autocomplete="off">
+          <input type="text" id="inputName" placeholder="e.g. Ramesh G" required autocomplete="off">
         </div>
 
         <div class="form-row">
           <div class="form-group">
             <label for="inputRegisterNo">Register Number <span class="req">*</span></label>
-            <input type="text" id="inputRegisterNo" placeholder="e.g. 23CS101" required autocomplete="off">
+            <input type="text" id="inputRegisterNo" placeholder="e.g. College regno" required autocomplete="off">
           </div>
           <div class="form-group">
             <label for="inputRoomNo">Room Number <span class="req">*</span></label>
-            <input type="text" id="inputRoomNo" placeholder="e.g. 212" required autocomplete="off">
+            <input type="text" id="inputRoomNo" placeholder="e.g. S-405" required autocomplete="off">
           </div>
         </div>
 
         <div class="form-group">
           <label for="inputDepartment">Department <span class="req">*</span></label>
-          <input type="text" id="inputDepartment" placeholder="e.g. CSE (AI & ML)" required autocomplete="off">
+          <input type="text" id="inputDepartment" placeholder="e.g. CSE" required autocomplete="off">
         </div>
 
         <div class="modal-actions">
@@ -184,4 +178,5 @@
   <script src="js/api.js"></script>
   <script src="js/dashboard.js"></script>
 </body>
+
 </html>
