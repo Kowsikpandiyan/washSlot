@@ -16,7 +16,10 @@ document.addEventListener("DOMContentLoaded", () => {
   const monthSelect = document.getElementById("monthSelect");
   const yearSelect = document.getElementById("yearSelect");
 
-  if (hostelSelect) hostelSelect.value = savedHostel;
+  if (hostelSelect) {
+    hostelSelect.value = savedHostel;
+    hostelSelect.disabled = true;
+  }
   if (monthSelect) monthSelect.value = String(currentMonth);
   if (yearSelect) yearSelect.value = String(currentYear);
 
