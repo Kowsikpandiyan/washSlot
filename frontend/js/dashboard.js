@@ -22,16 +22,16 @@ const WEEKDAY_SESSIONS = [
 ];
 
 const SUNDAY_SESSIONS = [
-  { id: "Slot 1", title: "Sunday Slot 1", time: "7:30 AM – 8:30 AM", endHour: 8, endMin: 0 },
-  { id: "Slot 2", title: "Sunday Slot 2", time: "8:30 AM – 9:30 AM", endHour: 9, endMin: 0 },
-  { id: "Slot 3", title: "Sunday Slot 3", time: "9:30 AM – 10:30 AM", endHour: 10, endMin: 0 },
-  { id: "Slot 4", title: "Sunday Slot 4", time: "10:30 AM – 11:30 AM", endHour: 11, endMin: 0 },
-  { id: "Slot 5", title: "Sunday Slot 5", time: "11:30 AM – 12:30 PM", endHour: 12, endMin: 0 },
-  { id: "Slot 6", title: "Sunday Slot 6", time: "2:30 PM – 3:30 PM", endHour: 13, endMin: 0 },
-  { id: "Slot 7", title: "Sunday Slot 7", time: "3:30 PM – 4:30 PM", endHour: 14, endMin: 0 },
-  { id: "Slot 8", title: "Sunday Slot 8", time: "4:30 PM – 5:30 PM", endHour: 15, endMin: 0 },
-  { id: "Slot 9", title: "Sunday Slot 9", time: "5:30 PM – 6:30 PM", endHour: 16, endMin: 0 },
-  { id: "Slot 10", title: "Sunday Slot 10", time: "6:30 PM – 7:30 PM", endHour: 17, endMin: 0 }
+  { id: "Slot 1", title: "Sunday Slot 1", time: "7:30 AM – 8:30 AM", endHour: 8, endMin: 30 },
+  { id: "Slot 2", title: "Sunday Slot 2", time: "8:30 AM – 9:30 AM", endHour: 9, endMin: 30 },
+  { id: "Slot 3", title: "Sunday Slot 3", time: "9:30 AM – 10:30 AM", endHour: 10, endMin: 30 },
+  { id: "Slot 4", title: "Sunday Slot 4", time: "10:30 AM – 11:30 AM", endHour: 11, endMin: 30 },
+  { id: "Slot 5", title: "Sunday Slot 5", time: "11:30 AM – 12:30 PM", endHour: 12, endMin: 30 },
+  { id: "Slot 6", title: "Sunday Slot 6", time: "2:30 PM – 3:30 PM", endHour: 15, endMin: 30 },
+  { id: "Slot 7", title: "Sunday Slot 7", time: "3:30 PM – 4:30 PM", endHour: 16, endMin: 30 },
+  { id: "Slot 8", title: "Sunday Slot 8", time: "4:30 PM – 5:30 PM", endHour: 17, endMin: 30 },
+  { id: "Slot 9", title: "Sunday Slot 9", time: "5:30 PM – 6:30 PM", endHour: 18, endMin: 30 },
+  { id: "Slot 10", title: "Sunday Slot 10", time: "6:30 PM – 7:30 PM", endHour: 19, endMin: 30 }
 ];
 
 /**
@@ -210,8 +210,31 @@ function renderMachineGrid() {
       const key = `${session.id}_${machine}`;
       const booking = currentBookingsMap.get(key);
 
-      if (isSessionClosed) {
-        // SESSION CLOSED DISPLAY
+      if (booking) {
+        // BOOKED SLOT DISPLAY (SHOWS DETAILS FOR ACTIVE OR CLOSED SESSIONS)
+        html += `
+          <div class="machine-card booked ${isSessionClosed ? 'closed' : ''}">
+            <div class="card-top">
+              <span class="machine-badge">Washing Machine</span>
+              <span class="status-pill ${isSessionClosed ? 'status-closed' : 'status-booked'}">
+                ${isSessionClosed ? '🔒 CLOSED' : '🔴 BOOKED'}
+              </span>
+            </div>
+            <div class="booking-details">
+              <p class="student-name">👤 ${escapeHtml(booking.name)}</p>
+              <div class="detail-grid">
+                <span><strong>Reg No:</strong> ${escapeHtml(booking.registerNo)}</span>
+                <span><strong>Room:</strong> ${escapeHtml(booking.roomNo)}</span>
+                <span class="dept-span"><strong>Dept:</strong> ${escapeHtml(booking.department)}</span>
+              </div>
+            </div>
+            <button class="btn btn-disabled" disabled>
+              ${isSessionClosed ? 'Session Ended' : 'Slot Booked'}
+            </button>
+          </div>
+        `;
+      } else if (isSessionClosed) {
+        // UNBOOKED & CLOSED SESSION DISPLAY
         html += `
           <div class="machine-card closed">
             <div class="card-top">
@@ -222,25 +245,6 @@ function renderMachineGrid() {
               <p>Time for this session has ended.</p>
             </div>
             <button class="btn btn-disabled" disabled>Session Ended</button>
-          </div>
-        `;
-      } else if (booking) {
-        // BOOKED SLOT DISPLAY
-        html += `
-          <div class="machine-card booked">
-            <div class="card-top">
-              <span class="machine-badge">Washing Machine</span>
-              <span class="status-pill status-booked">🔴 BOOKED</span>
-            </div>
-            <div class="booking-details">
-              <p class="student-name">👤 ${escapeHtml(booking.name)}</p>
-              <div class="detail-grid">
-                <span><strong>Reg No:</strong> ${escapeHtml(booking.registerNo)}</span>
-                <span><strong>Room:</strong> ${escapeHtml(booking.roomNo)}</span>
-                <span class="dept-span"><strong>Dept:</strong> ${escapeHtml(booking.department)}</span>
-              </div>
-            </div>
-            <button class="btn btn-disabled" disabled>Slot Booked</button>
           </div>
         `;
       } else {
